@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Securitizer AI</title>
+
+  <!-- Tailwind CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+
+  <!-- tsParticles -->
+  <script src="https://cdn.jsdelivr.net/npm/tsparticles@2/tsparticles.bundle.min.js"></script>
+
+  <style>
+    #tsparticles {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      z-index: -1;
+      pointer-events: none;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #0f172a;
+    }
+
+    .glass {
+      background-color: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+    }
+
+    .gradient-hero {
+      background: linear-gradient(135deg, #1e3a8a, #4f46e5);
+    }
+  </style>
+</head>
+<body class="text-gray-100">
+
+  <!-- Particle Background -->
+  <div id="tsparticles"></div>
+
+  <!-- Hero Section -->
+  <!-- Hero Section with Scoped Particle Animation -->
+<section class="relative gradient-hero py-24 px-6 text-center text-white overflow-hidden">
+  <!-- Particle Background limited to hero -->
+  <div id="tsparticles-hero" class="absolute inset-0 z-0 pointer-events-none"></div>
+
+  <div class="relative z-10 max-w-4xl mx-auto">
+    <h1 class="text-5xl font-extrabold mb-4">The AI Stack for Securitization</h1>
+    <p class="text-xl mb-6 text-indigo-100">
+      AI-powered cashflow modeling and forecasting for RMBS, CMBS, CLO, and ABS — with deep learning, PCA, and cloud-native APIs.
+    </p>
+    <a href="#platform" class="bg-white text-blue-700 font-medium px-6 py-3 rounded-lg shadow-lg hover:bg-indigo-100 transition">
+      Explore the Platform
+    </a>
+  </div>
+</section>
+
+
+  <!-- Platform Section -->
+  <section id="platform" class="py-20 px-6 bg-gray-900 text-center">
+    <h2 class="text-3xl font-bold mb-4 text-white">Our Platform</h2>
+    <p class="text-gray-400 mb-10 max-w-2xl mx-auto">
+      Securitizer delivers a structured finance engine built with precision, speed, and modern AI infrastructure.
+    </p>
+    <div class="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+      <div class="glass rounded-xl p-6 text-left">
+        <h3 class="text-xl font-semibold mb-2">αWaterfall Engine</h3>
+        <p>Python/Cython-based modularization engines for complex RMBS, CMBS, CLO, and ABS cashflows. Fast and programmable using JupyterNote or Lab as interactive interface.</p>
+      </div>
+      <div class="glass rounded-xl p-6 text-left">
+        <h3 class="text-xl font-semibold mb-2">AI Powered</h3>
+        <p>Advanced Machine Learning to forecast Loss Coverages on loan and deal levels. LSTM + PCA macro forecasting to simulate inflation, recession, and policy changes of yield curves and performance metrics.</p>
+      </div>
+      <div class="glass rounded-xl p-6 text-left">
+        <h3 class="text-xl font-semibold mb-2">Cloud/API Ready</h3>
+        <p>Integrate via SaaS, PaaS, or deploy privately. RESTful APIs for real-time analytics and custom dashboards.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section id="contact" class="py-20 px-6 bg-gray-800 text-center">
+    <h2 class="text-3xl font-bold mb-4 text-white">Book a Demo</h2>
+    <p class="text-gray-400 mb-6">Let us walk you through live scenarios and custom integrations.</p>
+    <a href="mailto:contact@securitizer.io" class="bg-blue-600 text-white px-6 py-3 rounded-lg shadow-md hover:bg-blue-700 transition">
+      Contact Us
+    </a>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-gray-950 text-gray-500 text-sm text-center py-6">
+    &copy; 2025 Securitizer. Advanced Financial Engineering, LLC. All rights reserved.
+  </footer>
+
+  <!-- tsParticles Setup -->
+  <script>
+  tsParticles.load("tsparticles-hero", {
+    background: { color: { value: "transparent" } },
+    fpsLimit: 60,
+    fullScreen: { enable: false }, // IMPORTANT: disables global fullscreen mode
+    particles: {
+      number: { value: 60, density: { enable: true, area: 800 } },
+      color: { value: "#ffffff" },
+      links: {
+        enable: true,
+        distance: 120,
+        color: "#ffffff",
+        opacity: 0.2,
+        width: 1
+      },
+      move: {
+        enable: true,
+        speed: 1,
+        direction: "none",
+        outModes: { default: "out" }
+      },
+      size: { value: 2.5 },
+      opacity: { value: 0.3 }
+    },
+    interactivity: {
+      events: { onHover: { enable: true, mode: "repulse" } },
+      modes: { repulse: { distance: 100 } }
+    }
+  });
+</script>
+
+</body>
+</html>
