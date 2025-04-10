@@ -1,373 +1,135 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta
-      name="description"
-      content="QuantumYield.ai leverages a patent-pending surrogate modeling framework for ultra-fast, real-time U.S. Treasury yield curve forecasting."
-    />
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Securitizer AI</title>
 
-    <!-- ✅ Open Graph Meta Tags for social sharing -->
-    <meta
-      property="og:title"
-      content="QuantumYield.ai | Patent-Pending Real-Time Treasury Forecasting"
-    />
-    <meta
-      property="og:description"
-      content="Patent-pending AI model delivers faster yield curve forecasts for U.S. Treasuries. Built by QuantumYield.ai."
-    />
-    <meta property="og:url" content="https://www.quantumyield.ai" />
-    <meta property="og:type" content="website" />
+  <!-- Tailwind CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 
-    <title>Quantum Yield</title>
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap"
-      rel="stylesheet"
-    />
-    <style>
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-      }
+  <!-- tsParticles -->
+  <script src="https://cdn.jsdelivr.net/npm/tsparticles@2/tsparticles.bundle.min.js"></script>
 
-      html,
-      body {
-        font-family: "Inter", sans-serif;
-        background: linear-gradient(135deg, #000428, #004e92);
-        height: 100%;
-        overflow: hidden;
-        position: relative;
-      }
+  <style>
+    #tsparticles {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      z-index: -1;
+      pointer-events: none;
+    }
 
-      canvas#bgCanvas {
-        position: fixed;
-        top: 0;
-        left: 0;
-        z-index: 0;
-      }
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #0f172a;
+    }
 
-      #capture {
-        position: relative;
-        z-index: 1;
-        min-height: 100vh;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        text-align: center;
-        padding: 2rem;
-        color: white;
-      }
+    .glass {
+      background-color: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+    }
 
-      h1 {
-        font-size: 3rem;
-        margin-bottom: 0.5rem;
-      }
+    .gradient-hero {
+      background: linear-gradient(135deg, #1e3a8a, #4f46e5);
+    }
+  </style>
+</head>
+<body class="text-gray-100">
 
-      p {
-        font-size: 1.25rem;
-        max-width: 600px;
-        margin-bottom: 2rem;
-      }
+  <!-- Particle Background -->
+  <div id="tsparticles"></div>
 
-      .btn {
-        background-color: #00c6ff;
-        color: white;
-        padding: 0.85rem 2rem;
-        border: none;
-        border-radius: 30px;
-        font-size: 1rem;
-        font-weight: 600;
-        text-decoration: none;
-        transition: background-color 0.3s ease;
-        cursor: pointer;
-      }
+  <!-- Hero Section -->
+  <!-- Hero Section with Scoped Particle Animation -->
+<section class="relative gradient-hero py-24 px-6 text-center text-white overflow-hidden">
+  <!-- Particle Background limited to hero -->
+  <div id="tsparticles-hero" class="absolute inset-0 z-0 pointer-events-none"></div>
 
-      .btn:hover {
-        background-color: #0072ff;
-      }
+  <div class="relative z-10 max-w-4xl mx-auto">
+    <h1 class="text-5xl font-extrabold mb-4">The AI Stack for Securitization</h1>
+    <p class="text-xl mb-6 text-indigo-100">
+      AI-powered cashflow modeling and forecasting for RMBS, CMBS, CLO, and ABS — with deep learning, PCA, and cloud-native APIs.
+    </p>
+    <a href="#platform" class="bg-white text-blue-700 font-medium px-6 py-3 rounded-lg shadow-lg hover:bg-indigo-100 transition">
+      Explore the Platform
+    </a>
+  </div>
+</section>
 
-      .robot-icon {
-        display: inline-block;
-        margin-right: 0.5rem;
-        animation: bounceGlow 2s infinite ease-in-out;
-        filter: drop-shadow(0 0 5px #00faff);
-      }
 
-      @keyframes bounceGlow {
-        0%,
-        100% {
-          transform: translateY(0);
-          filter: drop-shadow(0 0 5px #00faff);
-        }
-        50% {
-          transform: translateY(-4px);
-          filter: drop-shadow(0 0 12px #00faff);
-        }
-      }
-
-      footer {
-        margin-top: 2rem;
-        font-size: 0.9rem;
-        color: #ccc;
-      }
-
-      /* Modal */
-      .modal {
-        display: none;
-        position: fixed;
-        z-index: 2;
-        top: 0;
-        left: 0;
-        height: 100vh;
-        width: 100vw;
-        background: rgba(0, 0, 0, 0.8);
-        justify-content: center;
-        align-items: center;
-      }
-
-      .modal-content {
-        background-color: #111c40;
-        padding: 2rem;
-        border-radius: 8px;
-        color: white;
-        width: 90%;
-        max-width: 500px;
-        position: relative;
-        box-shadow: 0 0 20px #00c6ff88;
-      }
-
-      .modal-content h2 {
-        margin-bottom: 1rem;
-      }
-
-      .modal-content input,
-      .modal-content textarea {
-        width: 100%;
-        padding: 0.75rem;
-        margin-bottom: 1rem;
-        border: none;
-        border-radius: 5px;
-        font-size: 1rem;
-      }
-
-      .modal-content button {
-        background-color: #00c6ff;
-        border: none;
-        padding: 0.7rem 1.5rem;
-        border-radius: 30px;
-        font-weight: 600;
-        cursor: pointer;
-      }
-
-      .modal-content button:hover {
-        background-color: #0072ff;
-      }
-
-      .close {
-        position: absolute;
-        top: 1rem;
-        right: 1rem;
-        font-size: 1.5rem;
-        color: #ccc;
-        cursor: pointer;
-      }
-    </style>
-  </head>
-  <body>
-    <!-- Background Canvas -->
-    <canvas id="bgCanvas"></canvas>
-
-    <!-- Main Landing -->
-    <div id="capture">
-      <h1>Quantum Yield</h1>
-      <p>
-        AI-powered financial forecasting and scenario analysis. Built for
-        precision, speed, and next-generation risk management.
-      </p>
-      <div
-        style="
-          display: flex;
-          gap: 1rem;
-          flex-wrap: wrap;
-          justify-content: center;
-        "
-      >
-        <a href="https://ycf.quantumyield.ai" target="_blank" class="btn">
-          <span class="robot-icon">📈</span> Explore Yield Curve Forecasts
-        </a>
-        <button class="btn" id="openModal">
-          <span class="robot-icon">🤖</span> Contact Us
-        </button>
+  <!-- Platform Section -->
+  <section id="platform" class="py-20 px-6 bg-gray-900 text-center">
+    <h2 class="text-3xl font-bold mb-4 text-white">Our Platform</h2>
+    <p class="text-gray-400 mb-10 max-w-2xl mx-auto">
+      Securitizer delivers a structured finance engine built with precision, speed, and modern AI infrastructure.
+    </p>
+    <div class="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+      <div class="glass rounded-xl p-6 text-left">
+        <h3 class="text-xl font-semibold mb-2">αWaterfall Engine</h3>
+        <p>Python/Cython-based modularization engines for complex RMBS, CMBS, CLO, and ABS cashflows. Fast and programmable using JupyterNote or Lab as interactive interface.</p>
       </div>
-      <footer
-        style="
-          margin-top: 2rem;
-          font-size: 0.85rem;
-          color: #bbb;
-          text-align: center;
-        "
-      >
-        <span style="font-weight: 700"
-          >✨ Elevating human intelligence through AI collaboration. ✨</span
-        ><br />
-        © 2025 Quantum Yield. Advanced Financial Engineering, LLC. All rights
-        reserved. Patent pending.
-      </footer>
-    </div>
-
-    <!-- Modal Form -->
-    <div id="popupModal" class="modal">
-      <div class="modal-content">
-        <span class="close" id="closeModal">&times;</span>
-        <h2>User Information</h2>
-        <form id="contactForm">
-          <input type="text" name="name" placeholder="Your Name" required />
-          <input type="email" name="email" placeholder="Your Email" required />
-          <input type="tel" name="phone" placeholder="Your Phone" />
-          <textarea
-            name="message"
-            rows="4"
-            placeholder="Your Message"
-          ></textarea>
-          <button type="submit">Send</button>
-        </form>
+      <div class="glass rounded-xl p-6 text-left">
+        <h3 class="text-xl font-semibold mb-2">AI Powered</h3>
+        <p>Advanced Machine Learning to forecast Loss Coverages on loan and deal levels. LSTM + PCA macro forecasting to simulate inflation, recession, and policy changes of yield curves and performance metrics.</p>
+      </div>
+      <div class="glass rounded-xl p-6 text-left">
+        <h3 class="text-xl font-semibold mb-2">Cloud/API Ready</h3>
+        <p>Integrate via SaaS, PaaS, or deploy privately. RESTful APIs for real-time analytics and custom dashboards.</p>
       </div>
     </div>
+  </section>
 
-    <!-- JS Logic -->
-    <script>
-      // Quantum Particles
-      const canvas = document.getElementById("bgCanvas")
-      const ctx = canvas.getContext("2d")
-      let particles = []
+  <!-- Contact -->
+  <section id="contact" class="py-20 px-6 bg-gray-800 text-center">
+    <h2 class="text-3xl font-bold mb-4 text-white">Book a Demo</h2>
+    <p class="text-gray-400 mb-6">Let us walk you through live scenarios and custom integrations.</p>
+    <a href="mailto:jason.huang@securitizer.io" class="bg-blue-600 text-white px-6 py-3 rounded-lg shadow-md hover:bg-blue-700 transition">
+      Contact Us
+    </a>
+  </section>
 
-      function resizeCanvas() {
-        canvas.width = window.innerWidth
-        canvas.height = window.innerHeight
-      }
+  <!-- Footer -->
+  <footer class="bg-gray-950 text-gray-500 text-sm text-center py-6">
+    &copy; 2025 Securitizer. Advanced Financial Engineering, LLC. All rights reserved.
+  </footer>
 
-      window.addEventListener("resize", resizeCanvas)
-      resizeCanvas()
+  <!-- tsParticles Setup -->
+  <script>
+  tsParticles.load("tsparticles-hero", {
+    background: { color: { value: "transparent" } },
+    fpsLimit: 60,
+    fullScreen: { enable: false }, // IMPORTANT: disables global fullscreen mode
+    particles: {
+      number: { value: 60, density: { enable: true, area: 800 } },
+      color: { value: "#ffffff" },
+      links: {
+        enable: true,
+        distance: 120,
+        color: "#ffffff",
+        opacity: 0.2,
+        width: 1
+      },
+      move: {
+        enable: true,
+        speed: 1,
+        direction: "none",
+        outModes: { default: "out" }
+      },
+      size: { value: 2.5 },
+      opacity: { value: 0.3 }
+    },
+    interactivity: {
+      events: { onHover: { enable: true, mode: "repulse" } },
+      modes: { repulse: { distance: 100 } }
+    }
+  });
+</script>
 
-      class Particle {
-        constructor() {
-          this.reset()
-        }
-        reset() {
-          this.x = Math.random() * canvas.width
-          this.y = Math.random() * canvas.height
-          this.radius = Math.random() * 2 + 1
-          this.speedX = (Math.random() - 0.5) * 0.5
-          this.speedY = (Math.random() - 0.5) * 0.5
-          this.alpha = Math.random() * 0.5 + 0.3
-        }
-        update() {
-          this.x += this.speedX
-          this.y += this.speedY
-          if (
-            this.x < 0 ||
-            this.x > canvas.width ||
-            this.y < 0 ||
-            this.y > canvas.height
-          ) {
-            this.reset()
-          }
-        }
-        draw() {
-          ctx.beginPath()
-          ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2)
-          ctx.fillStyle = `rgba(0, 255, 255, ${this.alpha})`
-          ctx.shadowColor = "#00faff"
-          ctx.shadowBlur = 5
-          ctx.fill()
-        }
-      }
-
-      function initParticles(count) {
-        particles = []
-        for (let i = 0; i < count; i++) {
-          particles.push(new Particle())
-        }
-      }
-
-      function animate() {
-        ctx.clearRect(0, 0, canvas.width, canvas.height)
-        particles.forEach((p) => {
-          p.update()
-          p.draw()
-        })
-        requestAnimationFrame(animate)
-      }
-
-      initParticles(100)
-      animate()
-
-      // Modal logic
-      const modal = document.getElementById("popupModal")
-      const openBtn = document.getElementById("openModal")
-      const closeBtn = document.getElementById("closeModal")
-
-      openBtn.onclick = () => {
-        modal.style.display = "flex"
-      }
-      closeBtn.onclick = () => {
-        modal.style.display = "none"
-      }
-      window.onclick = (e) => {
-        if (e.target === modal) modal.style.display = "none"
-      }
-
-      // Canvas particles & modal logic stay unchanged above
-
-      // 🚀 Form submission with debug logging
-      const contactForm = document.getElementById("contactForm")
-
-      contactForm.addEventListener("submit", async function (e) {
-        e.preventDefault() // Prevent default form action
-
-        const formData = new FormData(contactForm)
-        const user_info = {
-          name: formData.get("name"),
-          email: formData.get("email"),
-          phone: formData.get("phone"),
-          message: formData.get("message"),
-        }
-
-        try {
-          // *** Development setting ***
-          // const response = await fetch("http://127.0.0.1:5000/api/web_inquery", {
-          // *** Production setting ***
-          const response = await fetch(
-            "https://ycf.quantumyield.ai/api/web_inquery",
-            {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-              },
-              body: JSON.stringify({ user_info }),
-            },
-          )
-
-          const result = await response.json()
-          console.log("🛰️ Response status:", response.status)
-          console.log("📦 Response data:", result)
-
-          if (response.ok) {
-            alert("✅ Thank you! Your message was sent.")
-            contactForm.reset()
-            modal.style.display = "none"
-          } else {
-            alert("❌ Something went wrong:\n" + result.message)
-          }
-        } catch (error) {
-          console.error("🚨 Fetch error:", error)
-          alert("🚫 Network or server error. Please check the console.")
-        }
-      })
-    </script>
-  </body>
+</body>
 </html>
 
